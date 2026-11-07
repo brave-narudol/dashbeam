@@ -55,8 +55,8 @@ direct encrypted connection when possible.
 Reuse the same credential for later transfers, including after restarting the
 receiver with the same configuration. Each successful upload lands in a separate
 randomly named directory inside `C:\Inbox`. Failed exports are removed from that
-inbox; the underlying engine may retain partial download data in its temporary
-cache for recovery. No received file is executed or automatically opened.
+inbox; partial download data can remain in the receiver's private temporary
+cache until the process exits. No received file is executed or automatically opened.
 
 The timeout defaults to one hour. For a longer transfer, set it on both sides:
 
@@ -71,6 +71,18 @@ The timeout defaults to one hour. For a longer transfer, set it on both sides:
 Only one authenticated upload is accepted at a time. Other authenticated senders
 receive a busy error and can retry. The receiver remains listening after completion
 or rejection.
+
+## Coexisting with the desktop app
+
+The CLI is a separate executable with its own receiver identity and credentials.
+It does not change the installed desktop app, its settings, paired devices, or
+transfer history. Each CLI process uses a private temporary directory beneath
+the system temp folder, outside the desktop app's startup cleanup targets.
+This also separates simultaneous CLI processes. Temporary caches are removed
+on normal exit; an abrupt process termination can leave a cache behind.
+
+The stock desktop app cannot send to the token-protected CLI inbox. Use the CLI
+on both ends for inbox transfers, and keep the desktop app for ordinary sharing.
 
 ## Direction and authorization
 
