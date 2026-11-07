@@ -1,5 +1,10 @@
 **Language:** English | [中文](docs/readme/README.zh-CN.md) | [Русский](docs/readme/README.ru.md) | [Português](docs/readme/README.pt-BR.md) | [Español](docs/readme/README.es.md) | [Deutsch](docs/readme/README.de.md) | [Français](docs/readme/README.fr.md) | [日本語](docs/readme/README.ja.md) | [한국어](docs/readme/README.ko.md) | [Polski](docs/readme/README.pl.md) | [العربية](docs/readme/README.ar.md)
 
+## Upload-only inbox CLI (this fork)
+
+This fork adds a token-protected command-line inbox for Windows and macOS. See the
+[CLI setup and usage guide](engine/inbox-cli/README.md).
+
 <div align="center">
 
 # File transfer doesn't need to be complicated

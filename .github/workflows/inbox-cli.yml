@@ -1,0 +1,47 @@
+name: Inbox CLI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [codex/token-inbox]
+    paths: ['engine/**', '.github/workflows/inbox-cli.yml', 'rust-toolchain.toml']
+  pull_request:
+    paths: ['engine/**', '.github/workflows/inbox-cli.yml', 'rust-toolchain.toml']
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            artifact: dashbeam-inbox-windows-x64
+            binary: engine/target/release/dashbeam-inbox.exe
+          - os: macos-15
+            artifact: dashbeam-inbox-macos-arm64
+            binary: engine/target/release/dashbeam-inbox
+          - os: macos-15-intel
+            artifact: dashbeam-inbox-macos-x64
+            binary: engine/target/release/dashbeam-inbox
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dtolnay/rust-toolchain@1.91
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: engine
+      - name: Test inbox authorization and transfers
+        run: cargo test --locked --manifest-path engine/Cargo.toml -p dashbeam-inbox
+      - name: Build standalone CLI
+        run: cargo build --locked --release --manifest-path engine/Cargo.toml -p dashbeam-inbox
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: |
+            ${{ matrix.binary }}
+            engine/inbox-cli/README.md
+            LICENSE

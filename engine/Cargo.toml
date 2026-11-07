@@ -1,5 +1,5 @@
 [workspace]
-members = [".", "protocol", "native", "wasm-io"]
+members = [".", "protocol", "native", "wasm-io", "inbox-cli"]
 resolver = "2"
 
 [package]

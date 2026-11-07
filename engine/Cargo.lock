@@ -663,6 +663,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "dashbeam-inbox"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "blake3",
+ "clap",
+ "data-encoding",
+ "iroh",
+ "iroh-blobs",
+ "rand",
+ "sendme-native",
+ "serde",
+ "serde_json",
+ "subtle",
+ "tempfile",
+ "tokio",
+ "uuid",
+]
+
+[[package]]
 name = "data-encoding"
 version = "2.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
